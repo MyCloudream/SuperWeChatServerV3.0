@@ -9,7 +9,7 @@ import org.apache.ibatis.session.SqlSessionFactoryBuilder;
 public class MyBatisUtil {
 
     /**
-     * »ñÈ¡SqlSessionFactory
+     * è·å–SqlSessionFactory
      * @return SqlSessionFactory
      */
     public static SqlSessionFactory getSqlSessionFactory() {
@@ -20,7 +20,7 @@ public class MyBatisUtil {
     }
     
     /**
-     * »ñÈ¡SqlSession
+     * è·å–SqlSession
      * @return SqlSession
      */
     public static SqlSession getSqlSession() {
@@ -28,10 +28,10 @@ public class MyBatisUtil {
     }
     
     /**
-     * »ñÈ¡SqlSession
+     * è·å–SqlSession
      * @param isAutoCommit 
-     *         true ±íÊ¾´´½¨µÄSqlSession¶ÔÏóÔÚÖ´ĞĞÍêSQLÖ®ºó»á×Ô¶¯Ìá½»ÊÂÎñ
-     *         false ±íÊ¾´´½¨µÄSqlSession¶ÔÏóÔÚÖ´ĞĞÍêSQLÖ®ºó²»»á×Ô¶¯Ìá½»ÊÂÎñ£¬ÕâÊ±¾ÍĞèÒªÎÒÃÇÊÖ¶¯µ÷ÓÃsqlSession.commit()Ìá½»ÊÂÎñ
+     *         true è¡¨ç¤ºåˆ›å»ºçš„SqlSessionå¯¹è±¡åœ¨æ‰§è¡Œå®ŒSQLä¹‹åä¼šè‡ªåŠ¨æäº¤äº‹åŠ¡
+     *         false è¡¨ç¤ºåˆ›å»ºçš„SqlSessionå¯¹è±¡åœ¨æ‰§è¡Œå®ŒSQLä¹‹åä¸ä¼šè‡ªåŠ¨æäº¤äº‹åŠ¡ï¼Œè¿™æ—¶å°±éœ€è¦æˆ‘ä»¬æ‰‹åŠ¨è°ƒç”¨sqlSession.commit()æäº¤äº‹åŠ¡
      * @return SqlSession
      */
     public static SqlSession getSqlSession(boolean isAutoCommit) {

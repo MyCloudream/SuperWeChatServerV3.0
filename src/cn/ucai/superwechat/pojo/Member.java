@@ -1,80 +1,53 @@
 package cn.ucai.superwechat.pojo;
 
-import java.io.Serializable;
+public class Member {
+    private Integer mMemberId;
 
-public class Member implements Serializable {
-	private static final long serialVersionUID = 1L;
-	private Integer mmemberId;
-	private String mmemberUserName;
-	private Integer mmemberGroupId;
-	private String mmemberGroupHxid;
-	private Integer mmemberPermission;
-	public Member(){
-		super();
-	}
-	public Member(String mmemberUserName,Integer mmemberGroupId,String mmemberGroupHxid,Integer mmemberPermission){
-		this.mmemberUserName = mmemberUserName;
-		this.mmemberGroupId = mmemberGroupId;
-		this.mmemberGroupHxid = mmemberGroupHxid;
-		this.mmemberPermission = mmemberPermission;
-	}
-	public Member(Integer mmemberId,String mmemberUserName,Integer mmemberGroupId,String mmemberGroupHxid,Integer mmemberPermission){
-		this.mmemberId = mmemberId;
-		this.mmemberUserName = mmemberUserName;
-		this.mmemberGroupId = mmemberGroupId;
-		this.mmemberGroupHxid = mmemberGroupHxid;
-		this.mmemberPermission = mmemberPermission;
-	}
-	
-	public Integer getMMemberId() {
- 		return this.mmemberId;
- 	}
- 	
-	public void setMMemberId(Integer mmemberId){
-		this.mmemberId = mmemberId;
-	}
- 	
- 	public String getMMemberUserName() {
- 		return this.mmemberUserName;
- 	}
- 	
-	public void setMMemberUserName(String mmemberUserName){
-		this.mmemberUserName = mmemberUserName;
-	}
- 	
- 	public Integer getMMemberGroupId() {
- 		return this.mmemberGroupId;
- 	}
- 	
-	public void setMMemberGroupId(Integer mmemberGroupId){
-		this.mmemberGroupId = mmemberGroupId;
-	}
- 	
- 	public String getMMemberGroupHxid() {
- 		return this.mmemberGroupHxid;
- 	}
- 	
-	public void setMMemberGroupHxid(String mmemberGroupHxid){
-		this.mmemberGroupHxid = mmemberGroupHxid;
-	}
- 	
- 	public Integer getMMemberPermission() {
- 		return this.mmemberPermission;
- 	}
- 	
-	public void setMMemberPermission(Integer mmemberPermission){
-		this.mmemberPermission = mmemberPermission;
-	}
- 	
- 	 	@Override
- 	public String toString() {
- 		return "Member ["
- 	 	+ "this.mmemberId=" + mmemberId
-	 	+ "this.mmemberUserName=" + mmemberUserName
-	 	+ "this.mmemberGroupId=" + mmemberGroupId
-	 	+ "this.mmemberGroupHxid=" + mmemberGroupHxid
-	 	+ "this.mmemberPermission=" + mmemberPermission
-		;
- 	}
- 
+    private String mMemberUserName;
+
+    private Integer mMemberGroupId;
+
+    private String mMemberGroupHxid;
+
+    private Integer mMemberPermission;
+
+    public Integer getmMemberId() {
+        return mMemberId;
+    }
+
+    public void setmMemberId(Integer mMemberId) {
+        this.mMemberId = mMemberId;
+    }
+
+    public String getmMemberUserName() {
+        return mMemberUserName;
+    }
+
+    public void setmMemberUserName(String mMemberUserName) {
+        this.mMemberUserName = mMemberUserName == null ? null : mMemberUserName.trim();
+    }
+
+    public Integer getmMemberGroupId() {
+        return mMemberGroupId;
+    }
+
+    public void setmMemberGroupId(Integer mMemberGroupId) {
+        this.mMemberGroupId = mMemberGroupId;
+    }
+
+    public String getmMemberGroupHxid() {
+        return mMemberGroupHxid;
+    }
+
+    public void setmMemberGroupHxid(String mMemberGroupHxid) {
+        this.mMemberGroupHxid = mMemberGroupHxid == null ? null : mMemberGroupHxid.trim();
+    }
+
+    public Integer getmMemberPermission() {
+        return mMemberPermission;
+    }
+
+    public void setmMemberPermission(Integer mMemberPermission) {
+        this.mMemberPermission = mMemberPermission;
+    }
 }

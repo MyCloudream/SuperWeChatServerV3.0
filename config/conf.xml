@@ -2,7 +2,7 @@
 <!DOCTYPE configuration PUBLIC "-//mybatis.org//DTD Config 3.0//EN" "http://mybatis.org/dtd/mybatis-3-config.dtd">
 <configuration>
 	<!-- 加载属性文件 -->
-	<properties resource="db.properties"></properties>
+	<properties resource="jdbc.properties"></properties>
 		<environments default="development">
 			<environment id="development">
 				<!-- 使用jdbc事务管理，事务控制由mybatis -->
@@ -18,7 +18,7 @@
 		</environments>
 
 		<mappers>
-			<!-- <mapper resource="cn/ucai/mapper/UserMapper.xml" /> -->
-			<mapper class="cn.ucai.mapper.IUserMapper"/>
+			<mapper resource="cn/ucai/superwechat/mapper/UserMapper.xml" />
+			<!-- <mapper class="cn.ucai.superwechat.mapper.UserMapper"/> -->
 		</mappers>
 </configuration>

@@ -1,74 +1,63 @@
 package cn.ucai.superwechat.pojo;
 
-import java.io.Serializable;
+public class Avatar {
+    private Integer mAvatarId;
 
-public class Avatar implements Serializable {
-	private static final long serialVersionUID = 1L;
-	private Integer mavatarId;
-	private String mavatarUserName;
-	private String mavatarPath;
-	private Integer mavatarType;
-	private String mavatarLastUpdateTime;
-	public Avatar(){
-		super();
-	}
-	public Avatar(Integer mavatarId,String mavatarUserName,String mavatarPath,Integer mavatarType,String mavatarLastUpdateTime){
-		this.mavatarId = mavatarId;
-		this.mavatarUserName = mavatarUserName;
-		this.mavatarPath = mavatarPath;
-		this.mavatarType = mavatarType;
-		this.mavatarLastUpdateTime = mavatarLastUpdateTime;
-	}
-	
-	public Integer getMAvatarId() {
- 		return this.mavatarId;
- 	}
- 	
-	public void setMAvatarId(Integer mavatarId){
-		this.mavatarId = mavatarId;
-	}
- 	
- 	public String getMAvatarUserName() {
- 		return this.mavatarUserName;
- 	}
- 	
-	public void setMAvatarUserName(String mavatarUserName){
-		this.mavatarUserName = mavatarUserName;
-	}
- 	
- 	public String getMAvatarPath() {
- 		return this.mavatarPath;
- 	}
- 	
-	public void setMAvatarPath(String mavatarPath){
-		this.mavatarPath = mavatarPath;
-	}
- 	
- 	public Integer getMAvatarType() {
- 		return this.mavatarType;
- 	}
- 	
-	public void setMAvatarType(Integer mavatarType){
-		this.mavatarType = mavatarType;
-	}
- 	
- 	public String getMAvatarLastUpdateTime() {
- 		return this.mavatarLastUpdateTime;
- 	}
- 	
-	public void setMAvatarLastUpdateTime(String mavatarLastUpdateTime){
-		this.mavatarLastUpdateTime = mavatarLastUpdateTime;
-	}
- 	
- 	 	@Override
- 	public String toString() {
- 		return "Avatar ["
- 	 	+ "this.mavatarId=" + mavatarId
-	 	+ "this.mavatarUserName=" + mavatarUserName
-	 	+ "this.mavatarPath=" + mavatarPath
-	 	+ "this.mavatarType=" + mavatarType
-	 	+ "this.mavatarLastUpdateTime=" + mavatarLastUpdateTime
-		;
- 	}
- 
+    private String mAvatarUserName;
+
+    private String mAvatarSuffix;
+
+    private String mAvatarPath;
+
+    private Integer mAvatarType;
+
+    private String mAvatarLastUpdateTime;
+
+    public Integer getmAvatarId() {
+        return mAvatarId;
+    }
+
+    public void setmAvatarId(Integer mAvatarId) {
+        this.mAvatarId = mAvatarId;
+    }
+
+    public String getmAvatarUserName() {
+        return mAvatarUserName;
+    }
+
+    public void setmAvatarUserName(String mAvatarUserName) {
+        this.mAvatarUserName = mAvatarUserName == null ? null : mAvatarUserName.trim();
+    }
+
+    public String getmAvatarSuffix() {
+        return mAvatarSuffix;
+    }
+
+    public void setmAvatarSuffix(String mAvatarSuffix) {
+        this.mAvatarSuffix = mAvatarSuffix == null ? null : mAvatarSuffix.trim();
+    }
+
+    public String getmAvatarPath() {
+        return mAvatarPath;
+    }
+
+    public void setmAvatarPath(String mAvatarPath) {
+        this.mAvatarPath = mAvatarPath == null ? null : mAvatarPath.trim();
+    }
+
+    public Integer getmAvatarType() {
+        return mAvatarType;
+    }
+
+    public void setmAvatarType(Integer mAvatarType) {
+        this.mAvatarType = mAvatarType;
+    }
+
+    public String getmAvatarLastUpdateTime() {
+        return mAvatarLastUpdateTime;
+    }
+
+    public void setmAvatarLastUpdateTime(String mAvatarLastUpdateTime) {
+        this.mAvatarLastUpdateTime = mAvatarLastUpdateTime == null ? null : mAvatarLastUpdateTime.trim();
+    }
 }

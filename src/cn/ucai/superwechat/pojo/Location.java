@@ -1,107 +1,63 @@
 package cn.ucai.superwechat.pojo;
 
-import java.io.Serializable;
-import java.math.BigDecimal;
+public class Location {
+    private Integer mLocationId;
 
-public class Location implements Serializable,Comparable<Location>{
-	private static final long serialVersionUID = 1L;
-	private Integer mlocationId;
-	private String mlocationUserName;
-	private Double mlocationLatitude;
-	private Double mlocationLongitude;
-	private Boolean mlocationIsSearched;
-	private String mlocationLastUpdateTime;
+    private String mLocationUserName;
 
-	public Location() {
-		super();
-	}
+    private Double mLocationLatitude;
 
-	public Location(String mlocationUserName, Double mlocationLatitude, Double mlocationLongitude,
-			Boolean mlocationIsSearched, String mlocationLastUpdateTime) {
-		this.mlocationUserName = mlocationUserName;
-		this.mlocationLatitude = mlocationLatitude;
-		this.mlocationLongitude = mlocationLongitude;
-		this.mlocationIsSearched = mlocationIsSearched;
-		this.mlocationLastUpdateTime = mlocationLastUpdateTime;
-	}
+    private Double mLocationLongitude;
 
-	public Location(Integer mlocationId, String mlocationUserName, Double mlocationLatitude, Double mlocationLongitude,
-			Boolean mlocationIsSearched, String mlocationLastUpdateTime) {
-		this.mlocationId = mlocationId;
-		this.mlocationUserName = mlocationUserName;
-		this.mlocationLatitude = mlocationLatitude;
-		this.mlocationLongitude = mlocationLongitude;
-		this.mlocationIsSearched = mlocationIsSearched;
-		this.mlocationLastUpdateTime = mlocationLastUpdateTime;
-	}
+    private Integer mLocationIsSearched;
 
-	public Integer getMLocationId() {
-		return this.mlocationId;
-	}
+    private String mLocationLastUpdateTime;
 
-	public void setMLocationId(Integer mlocationId) {
-		this.mlocationId = mlocationId;
-	}
+    public Integer getmLocationId() {
+        return mLocationId;
+    }
 
-	public String getMLocationUserName() {
-		return this.mlocationUserName;
-	}
+    public void setmLocationId(Integer mLocationId) {
+        this.mLocationId = mLocationId;
+    }
 
-	public void setMLocationUserName(String mlocationUserName) {
-		this.mlocationUserName = mlocationUserName;
-	}
+    public String getmLocationUserName() {
+        return mLocationUserName;
+    }
 
-	public Double getMLocationLatitude() {
-		return this.mlocationLatitude;
-	}
+    public void setmLocationUserName(String mLocationUserName) {
+        this.mLocationUserName = mLocationUserName == null ? null : mLocationUserName.trim();
+    }
 
-	public void setMLocationLatitude(Double mlocationLatitude) {
-		this.mlocationLatitude = mlocationLatitude;
-	}
+    public Double getmLocationLatitude() {
+        return mLocationLatitude;
+    }
 
-	public Double getMLocationLongitude() {
-		return this.mlocationLongitude;
-	}
+    public void setmLocationLatitude(Double mLocationLatitude) {
+        this.mLocationLatitude = mLocationLatitude;
+    }
 
-	public void setMLocationLongitude(Double mlocationLongitude) {
-		this.mlocationLongitude = mlocationLongitude;
-	}
+    public Double getmLocationLongitude() {
+        return mLocationLongitude;
+    }
 
-	public Boolean getMLocationIsSearched() {
-		return this.mlocationIsSearched;
-	}
+    public void setmLocationLongitude(Double mLocationLongitude) {
+        this.mLocationLongitude = mLocationLongitude;
+    }
 
-	public void setMLocationIsSearched(Boolean mlocationIsSearched) {
-		this.mlocationIsSearched = mlocationIsSearched;
-	}
+    public Integer getmLocationIsSearched() {
+        return mLocationIsSearched;
+    }
 
-	public String getMLocationLastUpdateTime() {
-		return this.mlocationLastUpdateTime;
-	}
+    public void setmLocationIsSearched(Integer mLocationIsSearched) {
+        this.mLocationIsSearched = mLocationIsSearched;
+    }
 
-	public void setMLocationLastUpdateTime(String mlocationLastUpdateTime) {
-		this.mlocationLastUpdateTime = mlocationLastUpdateTime;
-	}
+    public String getmLocationLastUpdateTime() {
+        return mLocationLastUpdateTime;
+    }
 
-	@Override
-	public String toString() {
-		return "Location [" + "this.mlocationId=" + mlocationId + "this.mlocationUserName=" + mlocationUserName
-				+ "this.mlocationLatitude=" + mlocationLatitude + "this.mlocationLongitude=" + mlocationLongitude
-				+ "this.mlocationIsSearched=" + mlocationIsSearched + "this.mlocationLastUpdateTime="
-				+ mlocationLastUpdateTime;
-	}
-
-	@Override
-	public int compareTo(Location o) {
-		double EARTH_RADIUS = 6378137.0;
-		double dLat = Math.toRadians(o.mlocationLatitude - this.mlocationLatitude); 
-        double dLng = Math.toRadians(o.mlocationLongitude - this.mlocationLongitude);
-        double a = Math.sin(dLat / 2) * Math.sin(dLat / 2) +
-                            Math.cos(Math.toRadians(this.mlocationLatitude)) * Math.cos(Math.toRadians(o.mlocationLatitude)) *
-                            Math.sin(dLng / 2) * Math.sin(dLng / 2);
-        double c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
-        double distance = EARTH_RADIUS * c;
-        return new BigDecimal(distance).intValue();
-	}
-
+    public void setmLocationLastUpdateTime(String mLocationLastUpdateTime) {
+        this.mLocationLastUpdateTime = mLocationLastUpdateTime == null ? null : mLocationLastUpdateTime.trim();
+    }
 }
