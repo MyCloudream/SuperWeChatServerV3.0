@@ -19,7 +19,6 @@
 
 		<mappers>
 			<mapper resource="cn/ucai/superwechat/mapper/UserMapper.xml" />
-			<mapper resource="cn/ucai/superwechat/mapper/AvatarMapper.xml" />
 			<!-- <mapper class="cn.ucai.superwechat.mapper.UserMapper"/> -->
 		</mappers>
 </configuration>

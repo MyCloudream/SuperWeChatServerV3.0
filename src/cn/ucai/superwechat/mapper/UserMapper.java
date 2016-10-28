@@ -9,8 +9,10 @@ public interface UserMapper {
 	 * @param username 用户名
 	 * @return
 	 */
-    User selectByUsername(String username);
+    User selectUserByUsername(String username);
     
     int insertUser(User user);
+    
+    int insertAvatar(Avatar avatar);
 
 }
