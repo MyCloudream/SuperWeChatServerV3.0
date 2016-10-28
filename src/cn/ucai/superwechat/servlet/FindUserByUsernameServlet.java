@@ -16,7 +16,7 @@ import cn.ucai.superwechat.utils.I;
 import cn.ucai.superwechat.utils.JsonUtil;
 
 @WebServlet("/findUserByUserName")
-public class FindUserByUserNameServlet extends HttpServlet{
+public class FindUserByUsernameServlet extends HttpServlet{
 	private static final long serialVersionUID = 1L;
 	private IUserBiz  biz = new UserBizImpl();
 	@Override

@@ -15,10 +15,9 @@ public class UserBizImpl implements IUserBiz {
 
 	@Override
 	public Result findUserByUserName(String userName) {
-		User user = mapper.selectByUserName(userName);
+		User user = mapper.selectByUsername(userName);
 		System.out.println(user);
 		Result result = new Result();
-		// UserAvatar ua = dao.getUserAvatarByUsername(userName);
 		if (user == null) {
 			result.setRetMsg(false);
 			result.setRetCode(I.MSG_LOGIN_UNKNOW_USER);

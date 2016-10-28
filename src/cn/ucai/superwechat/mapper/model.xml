@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="cn.ucai.superwechat.mapper.UserMapper" >
+  <resultMap id="BaseResultMap" type="cn.ucai.superwechat.pojo.User" >
+    <id column="m_user_name" property="mUserName" jdbcType="VARCHAR" />
+    <result column="m_user_password" property="mUserPassword" jdbcType="VARCHAR" />
+    <result column="m_user_nick" property="mUserNick" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    m_user_name, m_user_password, m_user_nick
+  </sql>
+  <select id="selectByUserName" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from t_superwechat_user
+    where m_user_name = #{mUserName,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from t_superwechat_user
+    where m_user_name = #{mUserName,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="cn.ucai.superwechat.pojo.User" >
+    insert into t_superwechat_user (m_user_name, m_user_password, m_user_nick
+      )
+    values (#{mUserName,jdbcType=VARCHAR}, #{mUserPassword,jdbcType=VARCHAR}, #{mUserNick,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="cn.ucai.superwechat.pojo.User" >
+    insert into t_superwechat_user
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="mUserName != null" >
+        m_user_name,
+      </if>
+      <if test="mUserPassword != null" >
+        m_user_password,
+      </if>
+      <if test="mUserNick != null" >
+        m_user_nick,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="mUserName != null" >
+        #{mUserName,jdbcType=VARCHAR},
+      </if>
+      <if test="mUserPassword != null" >
+        #{mUserPassword,jdbcType=VARCHAR},
+      </if>
+      <if test="mUserNick != null" >
+        #{mUserNick,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="cn.ucai.superwechat.pojo.User" >
+    update t_superwechat_user
+    <set >
+      <if test="mUserPassword != null" >
+        m_user_password = #{mUserPassword,jdbcType=VARCHAR},
+      </if>
+      <if test="mUserNick != null" >
+        m_user_nick = #{mUserNick,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where m_user_name = #{mUserName,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="cn.ucai.superwechat.pojo.User" >
+    update t_superwechat_user
+    set m_user_password = #{mUserPassword,jdbcType=VARCHAR},
+      m_user_nick = #{mUserNick,jdbcType=VARCHAR}
+    where m_user_name = #{mUserName,jdbcType=VARCHAR}
+  </update>
+</mapper>

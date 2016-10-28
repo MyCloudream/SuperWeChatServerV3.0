@@ -1,39 +1,65 @@
 package cn.ucai.superwechat.pojo;
 
 public class User {
-    private String mUserName;
+	private String username;
+	private String password;
+	private String nick;
+	private Avatar avatar;
 
-    private String mUserPassword;
+	public User() {
+		super();
+	}
 
-    private String mUserNick;
+	public User(String username, String password, String nick) {
+		super();
+		this.username = username;
+		this.password = password;
+		this.nick = nick;
+	}
 
-    public String getmUserName() {
-        return mUserName;
-    }
+	public User(String username, String password, String nick, Avatar avatar) {
+		super();
+		this.username = username;
+		this.password = password;
+		this.nick = nick;
+		this.avatar = avatar;
+	}
 
-    public void setmUserName(String mUserName) {
-        this.mUserName = mUserName == null ? null : mUserName.trim();
-    }
+	public String getUsername() {
+		return username;
+	}
 
-    public String getmUserPassword() {
-        return mUserPassword;
-    }
+	public void setUsername(String username) {
+		this.username = username;
+	}
 
-    public void setmUserPassword(String mUserPassword) {
-        this.mUserPassword = mUserPassword == null ? null : mUserPassword.trim();
-    }
+	public String getPassword() {
+		return password;
+	}
 
-    public String getmUserNick() {
-        return mUserNick;
-    }
+	public void setPassword(String password) {
+		this.password = password;
+	}
 
-    public void setmUserNick(String mUserNick) {
-        this.mUserNick = mUserNick == null ? null : mUserNick.trim();
-    }
+	public String getNick() {
+		return nick;
+	}
+
+	public void setNick(String nick) {
+		this.nick = nick;
+	}
+
+	public Avatar getAvatar() {
+		return avatar;
+	}
+
+	public void setAvatar(Avatar avatar) {
+		this.avatar = avatar;
+	}
 
 	@Override
 	public String toString() {
-		return "User [mUserName=" + mUserName + ", mUserPassword=" + mUserPassword + ", mUserNick=" + mUserNick + "]";
+		return "User [username=" + username + ", password=" + password + ", nick=" + nick + ", avatar=" + avatar + "]";
 	}
-    
+	
 }

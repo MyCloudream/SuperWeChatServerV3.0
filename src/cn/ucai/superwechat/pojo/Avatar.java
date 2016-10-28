@@ -1,63 +1,65 @@
 package cn.ucai.superwechat.pojo;
 
 public class Avatar {
-    private Integer mAvatarId;
+	private Integer id;
+	private String suffix;
+	private String type;
+	private String uptime;
 
-    private String mAvatarUserName;
+	public Avatar() {
+		super();
+	}
 
-    private String mAvatarSuffix;
+	public Avatar(String suffix, String type, String uptime) {
+		super();
+		this.suffix = suffix;
+		this.type = type;
+		this.uptime = uptime;
+	}
+	
+	public Avatar(Integer id, String suffix, String type, String uptime) {
+		super();
+		this.id = id;
+		this.suffix = suffix;
+		this.type = type;
+		this.uptime = uptime;
+	}
 
-    private String mAvatarPath;
+	public Integer getId() {
+		return id;
+	}
 
-    private Integer mAvatarType;
+	public void setId(Integer id) {
+		this.id = id;
+	}
 
-    private String mAvatarLastUpdateTime;
+	public String getSuffix() {
+		return suffix;
+	}
 
-    public Integer getmAvatarId() {
-        return mAvatarId;
-    }
+	public void setSuffix(String suffix) {
+		this.suffix = suffix;
+	}
 
-    public void setmAvatarId(Integer mAvatarId) {
-        this.mAvatarId = mAvatarId;
-    }
+	public String getType() {
+		return type;
+	}
 
-    public String getmAvatarUserName() {
-        return mAvatarUserName;
-    }
+	public void setType(String type) {
+		this.type = type;
+	}
 
-    public void setmAvatarUserName(String mAvatarUserName) {
-        this.mAvatarUserName = mAvatarUserName == null ? null : mAvatarUserName.trim();
-    }
+	public String getUptime() {
+		return uptime;
+	}
 
-    public String getmAvatarSuffix() {
-        return mAvatarSuffix;
-    }
+	public void setUptime(String uptime) {
+		this.uptime = uptime;
+	}
 
-    public void setmAvatarSuffix(String mAvatarSuffix) {
-        this.mAvatarSuffix = mAvatarSuffix == null ? null : mAvatarSuffix.trim();
-    }
+	@Override
+	public String toString() {
+		return "Avatar [id=" + id + ", suffix=" + suffix + ", type=" + type + ", uptime=" + uptime + "]";
+	}
 
-    public String getmAvatarPath() {
-        return mAvatarPath;
-    }
-
-    public void setmAvatarPath(String mAvatarPath) {
-        this.mAvatarPath = mAvatarPath == null ? null : mAvatarPath.trim();
-    }
-
-    public Integer getmAvatarType() {
-        return mAvatarType;
-    }
-
-    public void setmAvatarType(Integer mAvatarType) {
-        this.mAvatarType = mAvatarType;
-    }
-
-    public String getmAvatarLastUpdateTime() {
-        return mAvatarLastUpdateTime;
-    }
-
-    public void setmAvatarLastUpdateTime(String mAvatarLastUpdateTime) {
-        this.mAvatarLastUpdateTime = mAvatarLastUpdateTime == null ? null : mAvatarLastUpdateTime.trim();
-    }
 }
