@@ -3,10 +3,12 @@ package cn.ucai.superwechat.utils;
 public interface I {
 
 	public static interface User {
-		String TABLE_NAME							=		"t_superwechat_user";
-		String USER_NAME 							= 		"m_user_name";					//用户账号
-		String PASSWORD 							= 		"m_user_password";				//用户密码
-		String NICK 								= 		"m_user_nick";					//用户昵称
+		String TABLE_NAME							=		"t_user";
+		String USER_NAME 							= 		"username";					//用户账号
+		String PASSWORD 							= 		"password";				//用户密码
+		String NICK 								= 		"nick";					//用户昵称
+		String SUFFIX 								= 		"suffix";					//用户昵称
+		String UPTIME 								= 		"uptime";					//用户昵称
 	}
 	
 	public static interface Contact {

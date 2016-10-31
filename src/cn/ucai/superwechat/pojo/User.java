@@ -4,8 +4,8 @@ public class User {
 	private String username;
 	private String password;
 	private String nick;
-	private Avatar avatar;
-
+	private String suffix;
+	private String uptime;
 	public User() {
 		super();
 	}
@@ -17,12 +17,13 @@ public class User {
 		this.nick = nick;
 	}
 
-	public User(String username, String password, String nick, Avatar avatar) {
+	public User(String username, String password, String nick, String suffix,String uptime) {
 		super();
 		this.username = username;
 		this.password = password;
 		this.nick = nick;
-		this.avatar = avatar;
+		this.suffix = suffix;
+		this.uptime = uptime;
 	}
 
 	public String getUsername() {
@@ -49,17 +50,26 @@ public class User {
 		this.nick = nick;
 	}
 
-	public Avatar getAvatar() {
-		return avatar;
+	public String getSuffix() {
+		return suffix;
 	}
 
-	public void setAvatar(Avatar avatar) {
-		this.avatar = avatar;
+	public void setSuffix(String suffix) {
+		this.suffix = suffix;
+	}
+
+	public String getUptime() {
+		return uptime;
+	}
+
+	public void setUptime(String uptime) {
+		this.uptime = uptime;
 	}
 
 	@Override
 	public String toString() {
-		return "User [username=" + username + ", password=" + password + ", nick=" + nick + ", avatar=" + avatar + "]";
+		return "User [username=" + username + ", password=" + password + ", nick=" + nick + ", suffix=" + suffix
+				+ ", uptime=" + uptime + "]";
 	}
 	
 }

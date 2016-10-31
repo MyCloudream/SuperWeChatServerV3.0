@@ -15,4 +15,6 @@ public interface UserMapper {
     
     int insertAvatar(Avatar avatar);
 
+	int updateUser(User user);
+
 }

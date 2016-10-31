@@ -11,30 +11,18 @@ import javax.servlet.http.HttpServletResponse;
 import cn.ucai.superwechat.bean.Result;
 import cn.ucai.superwechat.biz.IUserBiz;
 import cn.ucai.superwechat.biz.UserBizImpl;
-import cn.ucai.superwechat.pojo.User;
 import cn.ucai.superwechat.utils.I;
 import cn.ucai.superwechat.utils.JsonUtil;
 
-@WebServlet("/register")
-public class RegisterServlet extends HttpServlet {
+@WebServlet("/updateAvatar")
+public class UpdateAvatarServlet extends HttpServlet{
 	private static final long serialVersionUID = 1L;
 	private IUserBiz  biz = new UserBizImpl();
-    public RegisterServlet() {
-        super();
-    }
-
+	@Override
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// 1、接收用户传来的参数
-		String username = request.getParameter(I.User.USER_NAME);
-		String password = request.getParameter(I.User.PASSWORD);
-		String nick = request.getParameter(I.User.NICK);
-		System.out.println(username+":"+password+":"+nick);
-		// 2、注册（用户表插入、头像表插入、接收用户上传的图片）
-		// 封装接收参数
-		User user = new User(username,password,nick);
-		Result result = biz.register(user,request);
-		// 3、将注册结果发送给客户端
+		String nameOrHxid = request.getParameter(I.NAME_OR_HXID);
+		String avatarType = request.getParameter(I.AVATAR_TYPE);
+		Result result = biz.updateAvatar(nameOrHxid,avatarType,request);
 		JsonUtil.writeJsonToClient(result, response);
 	}
-
 }

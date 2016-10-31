@@ -1,10 +1,15 @@
 package cn.ucai.superwechat.biz;
 
+import java.awt.image.BufferedImage;
 import java.io.File;
+import java.io.IOException;
+import java.io.OutputStream;
 import java.util.Iterator;
 import java.util.List;
 
+import javax.imageio.ImageIO;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
 import org.apache.commons.fileupload.FileItem;
 import org.apache.commons.fileupload.disk.DiskFileItemFactory;
@@ -13,7 +18,6 @@ import org.apache.ibatis.session.SqlSession;
 
 import cn.ucai.superwechat.bean.Result;
 import cn.ucai.superwechat.mapper.UserMapper;
-import cn.ucai.superwechat.pojo.Avatar;
 import cn.ucai.superwechat.pojo.User;
 import cn.ucai.superwechat.utils.I;
 import cn.ucai.superwechat.utils.MyBatisUtil;
@@ -50,8 +54,8 @@ public class UserBizImpl implements IUserBiz {
 		User u = userMapper.selectUserByUsername(user.getUsername());
 		if (u == null) {// 没有
 			// 获得头像的后缀名
-			String suffix = uploadAvatar(user.getUsername(), I.AVATAR_TYPE_USER_PATH, request);
-			if (addUserAndAvatar(sqlSession, userMapper, user, suffix)) {// 注册成功
+			String suffix = uploadAvatar(user.getUsername(), request);
+			if (addUser(sqlSession, userMapper, user, suffix)) {// 注册成功
 				result.setRetMsg(true);
 				result.setRetCode(I.MSG_SUCCESS);
 			} else {// 删除头像
@@ -67,35 +71,32 @@ public class UserBizImpl implements IUserBiz {
 		return result;
 	}
 
-	public boolean addUserAndAvatar(SqlSession sqlSession, UserMapper mapper,User user, String suffix) {
-		Avatar avatar = new Avatar(suffix, "0", System.currentTimeMillis()+"");
-		mapper.insertAvatar(avatar);
-//		user.getAvatar().setId(avatar.getId());
-		user.setAvatar(avatar);
+	public boolean addUser(SqlSession sqlSession, UserMapper mapper, User user, String suffix) {
+		if (suffix != null) {
+			user.setSuffix(suffix);
+		}
+		user.setUptime(System.currentTimeMillis() + "");
 		mapper.insertUser(user);
 		sqlSession.commit();
 		return true;
 	}
-	
+
 	/**
 	 * 删除头像
+	 * 
 	 * @param path
 	 * @param name
 	 */
-	private void deleteAvatar(String path,String imageName) {
-		File file = new File(path,imageName);
-		if(file.exists()){
+	private void deleteAvatar(String path, String imageName) {
+		File file = new File(path, imageName);
+		if (file.exists()) {
 			file.delete();
 		}
 	}
 
-	private String uploadAvatar(String name, String avatarType, HttpServletRequest request) {
-		String path = null;
-		if (avatarType.equals(I.AVATAR_TYPE_USER_PATH)) {// 用户上传头像
-			path = PropertiesUtils.getValue("avatar_path", "path.properties") + I.AVATAR_TYPE_USER_PATH + "/";
-		} else if (avatarType.equals(I.AVATAR_TYPE_GROUP_PATH)) {// 群组上传
-			path = PropertiesUtils.getValue("avatar_path", "path.properties") + I.AVATAR_TYPE_GROUP_PATH + "/";
-		}
+	private String uploadAvatar(String name, HttpServletRequest request) {
+		String path = PropertiesUtils.getValue("avatar_path", "path.properties") + I.AVATAR_TYPE_USER_PATH + "/";
+		System.out.println(ServletFileUpload.isMultipartContent(request));
 		try {
 			DiskFileItemFactory factory = new DiskFileItemFactory();
 			factory.setSizeThreshold(4096); // 设置缓冲区大小，这里是4kb
@@ -106,25 +107,140 @@ public class UserBizImpl implements IUserBiz {
 			List<FileItem> items = upload.parseRequest(request);// 得到所有的文件
 			Iterator<FileItem> i = items.iterator();
 			String fileName = null;
-			while (i.hasNext()) {
+			if (i.hasNext()) {
 				FileItem fi = (FileItem) i.next();
 				fileName = fi.getName();
-				if (fileName != null) {
-					File savedFile = null;
-					if (name.indexOf(".") != -1) {// 更新头像操作
-						// 如果是更新图片，传过来的是shangpeng.jpg,，需要修改为shangpeng.png,上传则不必
-						savedFile = new File(path, name.substring(0, name.lastIndexOf("."))
-								+ fileName.substring(fileName.lastIndexOf(".")));
-					} else {// 上传头像操作
-						savedFile = new File(path, name + fileName.substring(fileName.lastIndexOf(".")));
-					}
-					fi.write(savedFile);
-				}
+				File savedFile = null;
+				savedFile = new File(path, name + fileName.substring(fileName.lastIndexOf(".")));
+				fi.write(savedFile);
+				return fileName.substring(fileName.lastIndexOf("."));
 			}
-			return fileName.substring(fileName.lastIndexOf("."));
 		} catch (Exception e) {
 			e.printStackTrace();
-			return null;
 		}
+		return null;
+	}
+
+	@Override
+	public Result login(User user) {
+		Result result = new Result();
+		User u = mapper.selectUserByUsername(user.getUsername());
+		if (u != null) {
+			if (u.getPassword().equals(user.getPassword())) {
+				result.setRetMsg(true);
+				result.setRetCode(I.MSG_SUCCESS);
+				result.setRetData(u);
+			} else {
+				result.setRetMsg(false);
+				result.setRetCode(I.MSG_LOGIN_ERROR_PASSWORD);
+			}
+		} else {
+			result.setRetMsg(false);
+			result.setRetCode(I.MSG_LOGIN_UNKNOW_USER);
+		}
+		return result;
+	}
+
+	@Override
+	public void downAvatar(String nameOrHxid, String avatarSuffix, String avatarType, HttpServletResponse response,
+			String width, String height) {
+		// 1、从文件中读
+		// 2、将读到的内容写入到客户端
+		response.setContentType("image/jpeg"); // MIME
+		File file = new File(PropertiesUtils.getValue("avatar_path", "path.properties") + avatarType + "/",
+				nameOrHxid + avatarSuffix);
+		try {
+			if (file.exists()) {
+				zoom(file.getPath(), response.getOutputStream());
+			}else{
+				file = new File(PropertiesUtils.getValue("avatar_path", "path.properties") + avatarType + "/default.jpg");
+				zoom(file.getPath(), response.getOutputStream());
+			}
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+	}
+	
+	public void zoom(String sourcePath,OutputStream os) throws IOException{  
+        File imageFile = new File(sourcePath);  
+        String format = sourcePath.substring(sourcePath.lastIndexOf(".")+1,sourcePath.length());  
+        BufferedImage image = ImageIO.read(imageFile);  
+        ImageIO.write(image, format, os);  
+        os.close();
+    }
+
+	/**
+	 * 更新用户或群组的头像
+	 */
+	@Override
+	public Result updateAvatar(String nameOrHxid, String avatarType, HttpServletRequest request) {
+		Result result = new Result();
+		// 先上传新图片覆盖旧图片
+		String suffix = uploadAvatar(nameOrHxid,request);
+		System.out.println("suffix:"+suffix);
+		if(suffix!=null){
+			if (avatarType.equals(I.AVATAR_TYPE_USER_PATH)) {// 用户
+				User user = new User();
+				user.setSuffix(suffix);
+				user.setUptime(System.currentTimeMillis()+"");
+				user.setUsername(nameOrHxid);
+				if(mapper.updateUser(user)!=0){
+					User u = mapper.selectUserByUsername(nameOrHxid);
+					result.setRetData(u);
+					System.out.println("success");
+				}else{
+					System.out.println("failed");
+					result.setRetMsg(false);
+					result.setRetCode(I.MSG_UPLOAD_AVATAR_FAIL);
+				}
+			} else if (avatarType.equals(I.AVATAR_TYPE_GROUP_PATH)) {// 群组
+				
+			}
+			result.setRetMsg(true);
+			result.setRetCode(I.MSG_SUCCESS);
+		}else{
+			result.setRetMsg(false);
+			result.setRetCode(I.MSG_UPLOAD_AVATAR_FAIL);
+		}
+		return result;
+	}
+
+	/**
+	 * 根据用户名更新昵称
+	 */
+	@Override
+	public Result updateNick(String username, String nick) {
+		Result result = new Result();
+		User user = new User();
+		user.setUsername(username);
+		user.setNick(nick);
+		if(mapper.updateUser(user)!=0){// 更新成功
+			result.setRetMsg(true);
+			result.setRetCode(I.MSG_SUCCESS);
+			User u = mapper.selectUserByUsername(username);
+			result.setRetData(u);
+		}else{// 更新失败
+			result.setRetMsg(false);
+			result.setRetCode(I.MSG_USER_UPDATE_NICK_FAIL);
+		}
+		return result;
+	}
+
+	@Override
+	public Result updatePassword(String username, String password) {
+		Result result = new Result();
+		User user = new User();
+		user.setUsername(username);
+		user.setPassword(password);
+		if(mapper.updateUser(user)!=0){// 更新成功
+			result.setRetMsg(true);
+			result.setRetCode(I.MSG_SUCCESS);
+			User u = mapper.selectUserByUsername(username);
+			result.setRetData(u);
+		}else{// 更新失败
+			result.setRetMsg(false);
+			result.setRetCode(I.MSG_USER_UPDATE_PASSWORD_FAIL);
+		}
+		return result;
 	}
 }

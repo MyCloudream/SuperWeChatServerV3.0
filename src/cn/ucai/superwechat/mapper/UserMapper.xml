@@ -1,30 +1,35 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="cn.ucai.superwechat.mapper.UserMapper">
-	<select id="selectUserByUsername" parameterType="java.lang.String" resultMap="UserAvatarResultMap">
-		select * from t_user u,t_avatar a where u.aid = a.id and u.username = #{username,jdbcType=VARCHAR}
+	<select id="selectUserByUsername" parameterType="java.lang.String"
+		resultType="cn.ucai.superwechat.pojo.User">
+		select * from t_user u where u.username =
+		#{username,jdbcType=VARCHAR}
 	</select>
-	
-	<resultMap type="cn.ucai.superwechat.pojo.User" id="UserAvatarResultMap">
-		<id property="username" column="username"/>
-        <result property="password" column="password"/>
-        <result property="nick" column="nick"/>
-        <association property="avatar" javaType="cn.ucai.superwechat.pojo.Avatar">
-            <id property="id" column="id"/>
-            <result property="suffix" column="suffix"/>
-            <result property="type" column="type"/>
-            <result property="uptime" column="uptime"/>
-        </association>
-	</resultMap>
-	
+
 	<insert id="insertUser" parameterType="cn.ucai.superwechat.pojo.User">
-		insert into t_user values(#{username},#{password},#{nick},#{avatar.id})
+		insert into t_user
+		values(#{username},#{password},#{nick},#{suffix},#{uptime})
 	</insert>
-	
-	<insert id="insertAvatar" parameterType="cn.ucai.superwechat.pojo.Avatar" useGeneratedKeys="true" keyProperty="id">
-		insert into t_avatar(suffix,type,uptime) values(#{suffix},#{type},#{uptime})
-	</insert>
-	
+
+	<update id="updateUser" parameterType="cn.ucai.superwechat.pojo.User">
+		update t_user
+		<set>
+			<if test="password != null">
+				password = #{password,jdbcType=VARCHAR},
+			</if>
+			<if test="nick != null">
+				nick = #{nick,jdbcType=VARCHAR},
+			</if>
+			<if test="suffix != null">
+				suffix = #{suffix,jdbcType=VARCHAR},
+			</if>
+			<if test="uptime != null">
+				uptime = #{uptime,jdbcType=VARCHAR},
+			</if>
+		</set>
+		where username = #{username,jdbcType=VARCHAR}
+	</update>
 </mapper>
 
 
